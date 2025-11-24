@@ -7,7 +7,7 @@ import ConnectionDb from "./config/db.js";
 import { Server as SocketServer } from "socket.io";
 import http from "http";
 import redisClient from "./config/redis.js";
-
+import AuthRoutes from "./routes/authRoutes.js"
 
 
 dotenv.config();
@@ -62,6 +62,8 @@ io.on("connection", (socket) => {
     console.log(`❌ Client disconnected: ${socket.id}`);
   });
 });
+
+app.use("/api/v1/auth",AuthRoutes);
 
 
 server.listen(PORT, () => {
