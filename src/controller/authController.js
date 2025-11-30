@@ -31,7 +31,6 @@ const safeUser = (user) => {
   return u;
 };
 
-// create access and refresh tokens with jti
 const generateTokens = (userId, phoneOrEmail) => {
   const jti = uuidv4(); // unique token id for rotation/tracking
 
@@ -60,7 +59,6 @@ const generateTokens = (userId, phoneOrEmail) => {
   return { accessToken, refreshToken, jti };
 };
 
-// store refresh token in redis with key refresh:<userId>:<jti> for rotation
 const storeRefreshToken = async (userId, jti, refreshToken, ttlSeconds) => {
   const key = `refresh:${userId}:${jti}`;
   await redisClient.set(key, refreshToken, "EX", ttlSeconds);
